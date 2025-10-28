@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI Dashboard Hub</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #4d87c9;
+      color: #fff;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    header .left {
+      display: flex;
+      align-items: center;
+    }
+
+    header img {
+      height: 55px;
+      margin-right: 15px;
+    }
+
+    header .titles {
+      display: flex;
+      flex-direction: column;
+    }
+
+    header .titles h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+    }
+
+    header .titles h2 {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #cdd4e0;
+      font-weight: 400;
+    }
+
+    header .right img {
+      height: 55px;
+    }
+
+    h3 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin: 40px 0 10px;
+      color: #002147;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .search-bar input {
+      width: 320px;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.25s ease-in-out;
+      border-top: 4px solid #002147;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .card-content {
+      flex: 1;
+    }
+
+    .card-content h3 {
+      margin: 0;
+      color: #002147;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .card-content p {
+      margin: 0;
+      color: #555;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #888;
+      font-size: 14px;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .card img {
+        width: 100%;
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="left">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg" alt="Emblem of India">
+      <div class="titles">
+        <h1>Ministry of Education</h1>
+        <h2>Government of India | Rashtriya Vidya Samiksha Kendra</h2>
+      </div>
+    </div>
+    <div class="right">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYq-CmUpEmv-aQZPDIEWjaBxWjK-foizGSeQ&s" alt="NDEAR Logo">
+    </div>
+  </header>
+
+  <h3>Central Access for All Dashboards</h3>
+
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search dashboards..." />
+  </div>
+
+  <div class="dashboard-grid" id="dashboardGrid"></div>
+
+  <div class="footer">
+    © 2025 | Dashboard Hub | Powered by RVSK PMU
+  </div>
+
+  <script>
+    const dashboards = [
+      {
+        title: "Attendance Dashboard",
+        category: "ATTENDANCE",
+        description: "Daily teacher and student attendance insights.",
+        link: "attendance.html",
+        image: "https://img.freepik.com/free-vector/attendance-concept-illustration_114360-7495.jpg"
+      },
+      {
+        title: "APAAR Dashboard",
+        category: "APAAR",
+        description: "APAAR Generation Status.",
+        link: "apaar.html",
+        image: "https://fairgaze.com/images/UploadedImages/thumbs/0330464_0330464_appar%20card.png"
+      },
+      {
+        title: "PM Poshan MIS Dashboard",
+        category: "MEALS",
+        description: "Monthly and Annually Reporting Dashboard.",
+        link: "pmposhan_mis.html",
+        image: "https://play-lh.googleusercontent.com/Ilku0TXHavdz6-Ci_PYJXdox0mJjEAfTPYM5wTusxAW8bBW6gslhKRJeeXWFDD1EjQ"
+      },
+      {
+        title: "PM Poshan AMS Dashboard",
+        category: "MEALS",
+        description: "Daily Meals reporting dashboard.",
+        link: "pmposhan_ams.html",
+        image: "https://play-lh.googleusercontent.com/Ilku0TXHavdz6-Ci_PYJXdox0mJjEAfTPYM5wTusxAW8bBW6gslhKRJeeXWFDD1EjQ"
+      },
+      {
+        title: "NAS Dashboard",
+        category: "ADMINISTRATION",
+        description: "National Achievement Survey performance overview.",
+        link: "nas.html",
+        image: "https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-8053.jpg"
+      },
+      {
+        title: "UDISE+ Dashboard",
+        category: "UDISE",
+        description: "Overall School ID Based Information.",
+        link: "udise.html",
+        image: "https://img.freepik.com/free-vector/dashboard-concept-illustration_114360-7621.jpg"
+      }
+    ];
+
+    const grid = document.getElementById("dashboardGrid");
+    const search = document.getElementById("search");
+
+    function render(filter = "") {
+      grid.innerHTML = "";
+      dashboards
+        .filter(d =>
+          d.title.toLowerCase().includes(filter.toLowerCase()) ||
+          d.category.toLowerCase().includes(filter.toLowerCase())
+        )
+        .forEach(d => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${d.image}" alt="${d.title}">
+            <div class="card-content">
+              <h3>${d.title}</h3>
+              <p><strong>Category:</strong> ${d.category}</p>
+              <p>${d.description}</p>
+            </div>
+          `;
+          card.onclick = () => window.open(d.link, "_blank");
+          grid.appendChild(card);
+        });
+    }
+
+    render();
+    search.addEventListener("input", e => render(e.target.value));
+  </script>
+</body>
+</html>
