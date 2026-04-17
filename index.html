@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Power BI Dashboard Hub</title>
+
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -49,10 +50,6 @@
       font-size: 0.95rem;
       color: #cdd4e0;
       font-weight: 400;
-    }
-
-    header .right img {
-      height: 55px;
     }
 
     h3 {
@@ -150,13 +147,12 @@
     }
   </style>
 </head>
+
 <body>
+
 <header>
   <div class="left">
-    <img 
-      src="https://thebranvetica.com/assets/img/NCERT_Logo.webp" 
-      alt="NCERT Logo"
-    >
+    <img src="https://thebranvetica.com/assets/img/NCERT_Logo.webp" alt="NCERT Logo">
     <div class="titles">
       <h1>National Council of Educational Research and Training</h1>
       <h2>NCERT | Government of India</h2>
@@ -164,99 +160,102 @@
   </div>
 </header>
 
+<h3>Central Access for All Dashboards</h3>
 
-  <h3>Central Access for All Dashboards</h3>
+<div class="search-bar">
+  <input type="text" id="search" placeholder="Search dashboards..." />
+</div>
 
-  <div class="search-bar">
-    <input type="text" id="search" placeholder="Search dashboards..." />
-  </div>
+<div class="dashboard-grid" id="dashboardGrid"></div>
 
-  <div class="dashboard-grid" id="dashboardGrid"></div>
+<div class="footer">
+  © 2025 | Dashboard Hub | Powered by RVSK PMU
+</div>
 
-  <div class="footer">
-    © 2025 | Dashboard Hub | Powered by RVSK PMU
-  </div>
+<script>
+  const dashboards = [
+    {
+      title: "Attendance Dashboard",
+      category: "ATTENDANCE",
+      description: "Daily teacher and student attendance insights.",
+      link: "attendance.html",
+      image: "https://img.freepik.com/free-vector/attendance-concept-illustration_114360-7495.jpg"
+    },
+    {
+      title: "APAAR Dashboard",
+      category: "APAAR",
+      description: "APAAR Generation Status.",
+      link: "apaar.html",
+      image: "https://fairgaze.com/images/UploadedImages/thumbs/0330464_0330464_appar%20card.png"
+    },
+    {
+      title: "PM Poshan MIS Dashboard",
+      category: "MEALS",
+      description: "Monthly and Annually Reporting Dashboard.",
+      link: "pmposhan_mis.html",
+      image: "https://play-lh.googleusercontent.com/Ilku0TXHavdz6-Ci_PYJXdox0mJjEAfTPYM5wTusxAW8bBW6gslhKRJeeXWFDD1EjQ"
+    },
+    {
+      title: "PM Poshan AMS Dashboard",
+      category: "MEALS",
+      description: "Daily Meals reporting dashboard.",
+      link: "pmposhan_ams.html",
+      image: "https://play-lh.googleusercontent.com/Ilku0TXHavdz6-Ci_PYJXdox0mJjEAfTPYM5wTusxAW8bBW6gslhKRJeeXWFDD1EjQ"
+    },
+    {
+      title: "NAS Dashboard",
+      category: "ADMINISTRATION",
+      description: "National Achievement Survey performance overview.",
+      link: "nas.html",
+      image: "https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-8053.jpg"
+    },
+    {
+      title: "UDISE+ Dashboard",
+      category: "UDISE",
+      description: "Overall School ID Based Information.",
+      link: "udise.html",
+      image: "https://img.freepik.com/free-vector/dashboard-concept-illustration_114360-7621.jpg"
+    },
 
-  <script>
-    const dashboards = [
-      {
-        title: "Attendance Dashboard",
-        category: "ATTENDANCE",
-        description: "Daily teacher and student attendance insights.",
-        link: "attendance.html",
-        image: "https://img.freepik.com/free-vector/attendance-concept-illustration_114360-7495.jpg"
-      },
-      {
-        title: "APAAR Dashboard",
-        category: "APAAR",
-        description: "APAAR Generation Status.",
-        link: "apaar.html",
-        image: "https://fairgaze.com/images/UploadedImages/thumbs/0330464_0330464_appar%20card.png"
-      },
-      {
-        title: "PM Poshan MIS Dashboard",
-        category: "MEALS",
-        description: "Monthly and Annually Reporting Dashboard.",
-        link: "pmposhan_mis.html",
-        image: "https://play-lh.googleusercontent.com/Ilku0TXHavdz6-Ci_PYJXdox0mJjEAfTPYM5wTusxAW8bBW6gslhKRJeeXWFDD1EjQ"
-      },
-      {
-        title: "PM Poshan AMS Dashboard",
-        category: "MEALS",
-        description: "Daily Meals reporting dashboard.",
-        link: "pmposhan_ams.html",
-        image: "https://play-lh.googleusercontent.com/Ilku0TXHavdz6-Ci_PYJXdox0mJjEAfTPYM5wTusxAW8bBW6gslhKRJeeXWFDD1EjQ"
-      },
-      {
-        title: "NAS Dashboard",
-        category: "ADMINISTRATION",
-        description: "National Achievement Survey performance overview.",
-        link: "nas.html",
-        image: "https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-8053.jpg"
-      },
-      {
-        title: "UDISE+ Dashboard",
-        category: "UDISE",
-        description: "Overall School ID Based Information.",
-        link: "udise.html",
-        image: "https://img.freepik.com/free-vector/dashboard-concept-illustration_114360-7621.jpg"
-      }
-    ];
-
-    const grid = document.getElementById("dashboardGrid");
-    const search = document.getElementById("search");
-
-    function render(filter = "") {
-      grid.innerHTML = "";
-      dashboards
-        .filter(d =>
-          d.title.toLowerCase().includes(filter.toLowerCase()) ||
-          d.category.toLowerCase().includes(filter.toLowerCase())
-        )
-        .forEach(d => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-            <img src="${d.image}" alt="${d.title}">
-            <div class="card-content">
-              <h3>${d.title}</h3>
-              <p><strong>Category:</strong> ${d.category}</p>
-              <p>${d.description}</p>
-            </div>
-          `;
-          card.onclick = () => window.open(d.link, "_blank");
-          grid.appendChild(card);
-        });
+    /* ✅ NEW DASHBOARD ADDED */
+    {
+      title: "Dropout Dashboard",
+      category: "ADMINISTRATION",
+      description: "Insights on student dropout trends and analysis.",
+      link: "https://app.powerbi.com/view?r=eyJrIjoiY2Y3MWFjOWQtNjA1My00N2I3LTk3ZGMtOWMwYWIwYjRkZDE5IiwidCI6ImUwOTUxM2M3LWUwNjQtNDFhOC05YzQxLTIzMmM0NGZhMzgwMiJ9",
+      image: "https://img.freepik.com/free-vector/analysis-concept-illustration_114360-1119.jpg"
     }
+  ];
 
-    render();
-    search.addEventListener("input", e => render(e.target.value));
-  </script>
+  const grid = document.getElementById("dashboardGrid");
+  const search = document.getElementById("search");
+
+  function render(filter = "") {
+    grid.innerHTML = "";
+    dashboards
+      .filter(d =>
+        d.title.toLowerCase().includes(filter.toLowerCase()) ||
+        d.category.toLowerCase().includes(filter.toLowerCase())
+      )
+      .forEach(d => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${d.image}" alt="${d.title}">
+          <div class="card-content">
+            <h3>${d.title}</h3>
+            <p><strong>Category:</strong> ${d.category}</p>
+            <p>${d.description}</p>
+          </div>
+        `;
+        card.onclick = () => window.open(d.link, "_blank");
+        grid.appendChild(card);
+      });
+  }
+
+  render();
+  search.addEventListener("input", e => render(e.target.value));
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
